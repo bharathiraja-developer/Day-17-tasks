@@ -37,6 +37,7 @@ fetch("https://restcountries.com/v3.1/all")
       namediv.textContent = `${namearray[i]}`;
       carddiv.appendChild(namediv);
       let bodydiv = document.createElement("div");
+      bodydiv.setAttribute("id", `body${i}`);
       bodydiv.setAttribute("class", "card-body text-white fw-medium");
       bodydiv.setAttribute(
         "style",
@@ -74,6 +75,7 @@ fetch("https://restcountries.com/v3.1/all")
 
     for (let i = 0; i < namearray.length; i++) {
       let id0 = document.getElementById(`${i}`);
+      let bid = document.getElementById(`body${i}`);
       id0.addEventListener("click", () =>
         fetch(
           `https://api.openweathermap.org/data/2.5/weather?q=${capitalarray[i]}&appid=37535e05ad275688e5f46c32751e7a40`
@@ -90,16 +92,37 @@ fetch("https://restcountries.com/v3.1/all")
            Temperature : ${data.main.temp}K,
            Pressure : ${data.main.pressure}hPa,
            Humidity : ${data.main.humidity}%`;
-            // let a = document.createElement("button");
-            // a.setAttribute("class", "btn btn-primary m-2 d-block mx-auto");
-            // a.textContent = "back";
-            // id0.appendChild(a);
-            id0.removeEventListener("click", () => {
-              click > 1;
+            let a = document.createElement("button");
+            a.setAttribute("class", "btn btn-primary m-2 d-block mx-auto");
+            a.setAttribute("id", `id${i}`);
+            a.textContent = "back";
+            bid.appendChild(a);
+            let id1 = document.getElementById(`id${i}`);
+            id1.addEventListener("click", () => {
+              id0.innerText = "Click for Weather";
+              id0.setAttribute(
+                "class",
+                "btn-primary btn border border-light text-white fw-medium"
+              );
+              bid.removeChild(a);
             });
           })
           .catch(() => {
             id0.innerText = "Data not found";
+            let a = document.createElement("button");
+            a.setAttribute("class", "btn btn-primary m-2 d-block mx-auto");
+            a.setAttribute("id", `id${i}`);
+            a.textContent = "back";
+            bid.appendChild(a);
+            let id1 = document.getElementById(`id${i}`);
+            id1.addEventListener("click", () => {
+              id0.innerText = "Click for Weather";
+              id0.setAttribute(
+                "class",
+                "btn-primary btn border border-light text-white fw-medium"
+              );
+              bid.removeChild(a);
+            });
           })
       );
     }
